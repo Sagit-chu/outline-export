@@ -1,4 +1,4 @@
-name: Release php docker
+name: Release outline-export docker
 
 on:
   workflow_dispatch:
