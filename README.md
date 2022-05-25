@@ -3,7 +3,7 @@
 # 使用
 ```
 docker build -t out .
-docker run -e URL=<https://outline.xxx.com> -e TOKEN=<Your TOKEN> out
+docker run --rm -e URL=<https://outline.xxx.com> -e TOKEN=<Your TOKEN> out
 
 ```
 
