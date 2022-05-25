@@ -16,17 +16,12 @@ func main() {
 	var token string
 	site = os.Getenv("URL")
 	token = os.Getenv("TOKEN")
-
-	// site := "https://outline.sagithome.com:8443/api/"
 	httpposturl := site + "/api/collections.export_all"
-	// fmt.Println("HTTP JSON POST URL:", httpposturl)
-
 	var jsonData = []byte(`{
 		"name": "morpheus",
 		"job": "leader"
 	}`)
 	request, error := http.NewRequest("POST", httpposturl, bytes.NewBuffer(jsonData))
-	// request.Header.Set("Content-Type", "application/json; charset=UTF-8") //token
 	request.Header.Set("Authorization", "Bearer "+token)
 
 	client := &http.Client{}
