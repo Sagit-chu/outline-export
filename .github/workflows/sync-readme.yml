@@ -17,5 +17,5 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-        repository: ${{ secrets.DOCKERHUB_USERNAME }}/ outline-export
+        repository: ${{ secrets.DOCKERHUB_USERNAME }}/outline-export
         readme: "./README.md"
