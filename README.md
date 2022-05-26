@@ -6,4 +6,4 @@ docker run --rm -e URL=<https://outline.xxx.com> -e TOKEN=<Your TOKEN> -v /path:
 
 ```
 
-触发之后outline默认把备份发送到你的邮箱（前提是你设置了发件邮箱）
+触发之后outline默认把备份发送到你的邮箱（前提是你设置了发件邮箱）,然后根据年月日作为文件名保存在`/backup`下面
