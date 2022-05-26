@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -16,7 +17,9 @@ func main() {
 	var token string
 	site = os.Getenv("URL")
 	token = os.Getenv("TOKEN")
+
 	httpposturl := site + "/api/collections.export_all"
+
 	var jsonData = []byte(`{
 		"name": "morpheus",
 		"job": "leader"
@@ -36,7 +39,6 @@ func main() {
 	body, _ := ioutil.ReadAll(response.Body)
 	fmt.Println("response Body:", string(body))
 
-	// 解析返回的json，拿到ID并下载
 	type FruitBasket struct {
 		Success bool `json:"success"`
 		Data    struct {
@@ -73,34 +75,41 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	// fmt.Println("ID是 ", id.Data.FileOperation.ID)
+	fmt.Println("ID是 ", id.Data.FileOperation.ID)
 
-	// id1 := id.Data.FileOperation.ID
+	time.Sleep(30 * time.Second)
 
-	// downloadUrl := site + "fileOperations.redirect?" + id1
+	id1 := id.Data.FileOperation.ID
 
-	// resp, err := http.Get(downloadUrl)
+	downloadUrl := site + "/api/fileOperations.redirect?id=" + id1
 
-	// resp.Header.Set("Authorization", "Bearer eTw89tQs2COj3VNsUNFTunXhZDGZPbep2xflsh")
+	println("下载地址是：", downloadUrl)
 
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// defer resp.Body.Close()
+	requestdwon, err := http.NewRequest("GET", downloadUrl, nil)
 
-	// //新建时间，为文件名
-	// // var file = time.Now().String()
+	requestdwon.Header.Set("Authorization", "Bearer "+token)
 
-	// // 创建一个文件用于保存
-	// out, err := os.Create("test.zip")
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// defer out.Close()
+	clientdown := &http.Client{}
+	resp, err := clientdown.Do(requestdwon)
 
-	// // 然后将响应流和文件流对接起来
-	// _, err = io.Copy(out, resp.Body)
-	// if err != nil {
-	// 	panic(err)
-	// }
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+
+	//新建时间，为文件名
+
+	// 创建一个文件用于保存
+	var filename = "/backup/" + time.Now().Format("2006-1-2-150405") + ".zip"
+	out, err := os.Create(filename)
+	if err != nil {
+		panic(err)
+	}
+	defer out.Close()
+
+	// 然后将响应流和文件流对接起来
+	_, err = io.Copy(out, resp.Body)
+	if err != nil {
+		panic(err)
+	}
 }

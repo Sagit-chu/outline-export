@@ -9,6 +9,7 @@ ENV WORKDIR /
 COPY --from=builder /app/main /
 
 RUN chmod +x main
+VOLUME [ "/backup" ]
 
 
 # CMD 指定启动容器时执行的命令
