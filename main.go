@@ -98,7 +98,6 @@ func main() {
 	defer resp.Body.Close()
 
 	//新建时间，为文件名
-
 	// 创建一个文件用于保存
 	var filename = "/backup/" + time.Now().Format("2006-1-2-150405") + ".zip"
 	out, err := os.Create(filename)
