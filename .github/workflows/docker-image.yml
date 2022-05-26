@@ -2,8 +2,11 @@ name: Release outline-export docker
 
 on:
   workflow_dispatch:
- # schedule:
- #   - cron: 0 0 * * 6
+  push:
+    branches:
+      - main
+    paths:
+      - "*.go"
   
 
 jobs:
