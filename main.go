@@ -75,9 +75,9 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println("执行导出完成")
-
 	time.Sleep(30 * time.Second)
+
+	fmt.Println("执行导出完成")
 
 	id1 := id.Data.FileOperation.ID
 
