@@ -2,7 +2,7 @@
 利用outline的API，执行导出数据的操作
 # 使用
 ```
-docker run --rm -e URL=<https://outline.xxx.com> -e TOKEN=<Your TOKEN> -v /path:/backup 601096721/outline-export
+docker run --rm -e URL=<https://outline.xxx.com> -e TOKEN=<Your TOKEN> -v /etc/timezone:/etc/timezone:ro -v /etc/localtime:/etc/localtime:ro -v /path:/backup 601096721/outline-export
 
 ```
 
