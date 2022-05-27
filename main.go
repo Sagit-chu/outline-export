@@ -75,15 +75,13 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println("ID是 ", id.Data.FileOperation.ID)
+	fmt.Println("执行导出完成")
 
 	time.Sleep(30 * time.Second)
 
 	id1 := id.Data.FileOperation.ID
 
 	downloadUrl := site + "/api/fileOperations.redirect?id=" + id1
-
-	println("下载地址是：", downloadUrl)
 
 	requestdwon, err := http.NewRequest("GET", downloadUrl, nil)
 
@@ -111,4 +109,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	fmt.Println("下载完成文件名为", filename)
 }
