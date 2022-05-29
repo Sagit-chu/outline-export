@@ -8,15 +8,20 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"os/exec"
 	"time"
 )
 
-func main() {
+var (
+	site  string
+	token string
+	b     string
+)
 
-	var site string
-	var token string
+func main() {
 	site = os.Getenv("URL")
 	token = os.Getenv("TOKEN")
+	b = os.Getenv("b")
 
 	httpposturl := site + "/api/collections.export_all"
 
@@ -108,6 +113,19 @@ func main() {
 	_, err = io.Copy(out, resp.Body)
 	if err != nil {
 		panic(err)
+	}
+
+	if b != "" {
+		command := `./deleteold.sh`
+		cmd := exec.Command("/bin/sh", "-c", command)
+
+		output, err := cmd.Output()
+		if err != nil {
+			fmt.Printf("Execute Shell:%s failed with error:%s", command, err.Error())
+			return
+		}
+		fmt.Printf("Execute Shell:%s finished with output:\n%s", command, string(output))
+
 	}
 
 	fmt.Println("下载完成文件名为", filename)
