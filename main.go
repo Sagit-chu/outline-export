@@ -42,8 +42,7 @@ func main() {
 	fmt.Println("response Status:", response.Status)
 	fmt.Println("response Headers:", response.Header)
 	body, _ := ioutil.ReadAll(response.Body)
-	fmt.Println("response Body:", string(body))
-
+	// fmt.Println("response Body:", string(body))
 	type FruitBasket struct {
 		Success bool `json:"success"`
 		Data    struct {

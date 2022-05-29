@@ -1,6 +1,6 @@
 #!/bin/sh
-if [ $(ls -l | grep "/backup/*.zip" | wc -l) -gt $b ]
+if [ $(ls -l /backup/*.zip | wc -l) -gt $b ]
 then
-    echo "file > $b"
-    rm -r $(ls -rt | head -n2)
+    rm -r $(ls -rt /backup/*.zip | head -n1)
+    echo "delete old backup success"
 fi
