@@ -3,9 +3,9 @@ package main
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"io"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 	"os/exec"
@@ -77,11 +77,11 @@ func main() {
 	var id FruitBasket
 	err := json.Unmarshal(body, &id)
 	if err != nil {
-		fmt.Println(err)
+		log.Panic(err)
 	}
 	time.Sleep(30 * time.Second)
 
-	fmt.Println("执行导出完成")
+	log.Println("执行导出完成")
 
 	id1 := id.Data.FileOperation.ID
 
@@ -120,12 +120,12 @@ func main() {
 
 		output, err := cmd.Output()
 		if err != nil {
-			fmt.Printf("Execute Shell:%s failed with error:%s", command, err.Error())
+			log.Printf("Execute Shell:%s failed with error:%s", command, err.Error())
 			return
 		}
-		fmt.Printf("Execute Shell:%s finished with output:\n%s", command, string(output))
+		log.Printf("Execute Shell:%s finished with output:\n%s", command, string(output))
 
 	}
 
-	fmt.Println("下载完成文件名为", filename)
+	log.Println("下载完成文件名为", filename)
 }
